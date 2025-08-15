@@ -21,6 +21,10 @@ export default function NavBar () {
                 <li>
                     <Link to='/articles'>Articles</Link>
                 </li> 
+
+                <li>
+                    <Link to='/create-account'>Create Account</Link>
+                </li>
                 {isLoading ? <li>Loading...</li> : (
                   <>
                 {user && (
@@ -33,6 +37,7 @@ export default function NavBar () {
                     ? <button onClick={() => signOut (getAuth())}>Logout</button>
                     : <button onClick={() => navigate('/login')}> Login</button>}                  
                 </li> 
+                 
                 </>
                 )}
             </ul>
