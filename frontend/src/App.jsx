@@ -1,10 +1,10 @@
+import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import {
   createBrowserRouter,
   RouterProvider,
 } from 'react-router-dom'
 import './App.css'
 import HomePage from './pages/HomePage'
-import AboutPage from './pages/AboutPage';
 import ArticleListPage from './pages/ArticlesListPage';
 import ArticlePage, { loader as articleLoader } from './pages/ArticlePage';
 import Layout from './Layout';
@@ -21,9 +21,6 @@ const routes = [{
     path: '/',
     element: <HomePage />
   }, {
-    path: '/about',
-    element: <AboutPage />
-}, {
     path: '/management',
     element: <EventManagementPage />
   }, {
