@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom'
 import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
 
+
 export default function LoginPage(){
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -14,7 +15,7 @@ export default function LoginPage(){
             await signInWithEmailAndPassword(getAuth(), email, password);
             navigate('/management');
         }   catch  (e)  {
-            setError(e.message);
+            setError("Problem logging in. Please check information and try again");
         }
     }
 
@@ -22,7 +23,7 @@ export default function LoginPage(){
       <>       
         <div className="auth-wrapper">
             <div className="auth-inner">
-                <h3>Login In</h3>
+                <h3>Login</h3>
                         {error && <p>{error}</p>}
           <label>Email address</label>
           <input
@@ -55,7 +56,7 @@ export default function LoginPage(){
         </div>
         <div className="d-grid">
          <button className="btn btn-primary"  onClick= {logIn}>Log In</button>
-        <Link to='/create-account'> Don;t have an account? Create one here</Link>
+      
     
         </div>
         <p className="forgot-password text-right">
