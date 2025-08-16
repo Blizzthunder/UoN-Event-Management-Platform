@@ -1,9 +1,13 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom'
 import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
+import PasswordChecklist from "react-password-checklist"
+
 
 export default function CreateAccountPage(){
     const [email, setEmail] = useState('');
+    const [firstName, setFirstName] = useState('');
+    const [lastName, setLastName] = useState(''); 
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
     const [error, setError] = useState('');
@@ -20,7 +24,7 @@ export default function CreateAccountPage(){
             await createUserWithEmailAndPassword(getAuth(), email, password);
             navigate('/management');
         }   catch  (e)  {
-            setError(e.message);
+            setError('Please ensure correct information has been used');
         }
     }
 
@@ -31,35 +35,45 @@ export default function CreateAccountPage(){
         <h3>Create Account</h3>
         {error && <p>{error}</p>}
         <div className="mb-3">
-          <label>First name</label>
+          <label>*Required</label>
           <input
             type="text"
             className="form-control"
             placeholder="First name"
-          />
-        </div>
+            onChange={e => setFirstName(e.target.value)} 
+            required
+            />
+                </div>
         <div className="mb-3">
-          <label>Last name</label>
-          <input type="text" className="form-control" placeholder="Last name" />
-        </div>
+          <label>*Required</label>
+          <input type="text" 
+          className="form-control" 
+          placeholder="Last name" 
+          onChange={e => setLastName(e.target.value)} 
+          required
+          />
+          </div>
 
         <div className="mb-3">
-        <label>Email Address</label>
+        <label>*Required</label>
       <input
         placeholder='Your email address'
         className="form-control" 
         value={email}
-        onChange={e => setEmail(e.target.value)} />
+        onChange={e => setEmail(e.target.value)} 
+        required/>
         </div>
 
         <div className="mb-3">
-          <label>Password</label>
+          <label>*Required</label>
          <input
         placeholder='Your password'
         className="form-control" 
         type='password'
         value={password}
-        onChange={e => setPassword(e.target.value)} />
+        onChange={e => setPassword(e.target.value)} 
+        required/>
+        
         </div>
 
         <div className="mb-3">
@@ -69,17 +83,33 @@ export default function CreateAccountPage(){
         className="form-control" 
         type='password'
         value={confirmPassword}
-        onChange={e => setConfirmPassword(e.target.value)} />
+        onChange={e => setConfirmPassword(e.target.value)} 
+        required/>
+
+      <PasswordChecklist
+				rules={["minLength","specialChar","number","capital","match"]}
+				minLength={5} 
+				value={password}
+				valueAgain={confirmPassword}
+				messages={{minLength: "Password must have at least 5 characters.",
+					specialChar: "Password must have at least 1 special character",
+					number: "Password must have at least 1 number",
+					capital: "Password must include at least 1 Capital",
+					match: "Password and Confirm Password do not Match!.",
+}}
+			/>
         </div>
 
         <div className="d-grid">
-        <button onClick= {createAccount}>Create Account</button>
+        <button className="btn btn-primary" onClick= {createAccount}>Create Account</button>
 
-        <Link to='/login'> Already have an account? Log In</Link>
-        </div>
+           </div>
+        <p className="forgot-password text-right">
+          <Link to='/login'> Already have an account? Log In</Link>
+      </p>
        </div>
        </div>
-     </>
-    );
-}
+      </>
+    )
+  }
 
