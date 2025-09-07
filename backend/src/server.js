@@ -3,16 +3,6 @@ import { MongoClient, ServerApiVersion } from 'mongodb';
 import admin from 'firebase-admin';
 import fs from 'fs';
 
-const articleInfo =[
- { name: 'learn-node', upvotes: 0, comments: []},
-{ name: 'learn-node', upvotes: 0, comments: []},
-{ name: 'learn-node', upvotes: 0, comments: []},
-
-
-]
-
-
-
 const credentials = JSON.parse(
   fs.readFileSync('./credentials.json')
 );
@@ -39,7 +29,7 @@ async function connectToDB(){
 
  await client.connect();
 
- db = client.db('event-management-db');
+ db = client.db('full-stack-react-db');
 }
 
 app.get('/api/articles/:name', async (req, res) => {
